@@ -1,10 +1,14 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ToyList } from '../cmps/toy-list'
+
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { toyService } from '../services/toy.service'
+
 import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
 import { ADD_TO_CART } from '../store/reducers/toy.reducer'
+
+import { Loader } from '../cmps/loader'
+import { ToyList } from '../cmps/toy-list'
 
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
@@ -77,7 +81,7 @@ export function ToyIndex() {
         onEditToy={onEditToy}
         addToCart={addToCart}
       />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
     </section>
   )
 }

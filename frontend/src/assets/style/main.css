@@ -12,6 +12,7 @@
 @import 'cmps/app-header.css';
 @import 'cmps/toggle-btn.css';
 @import 'cmps/user-msg.css';
+@import 'cmps/loader.css';
 
 @import 'cmps/toy-filter.css';
 @import 'cmps/toy-list.css';
