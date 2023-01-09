@@ -1,5 +1,5 @@
 export function Loader() {
-  const loader = 'Loader-1.svg'
+  const loader = 'Loader-2.svg'
   return (
     <img
       className="loader"
