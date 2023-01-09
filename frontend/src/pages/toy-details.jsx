@@ -33,6 +33,7 @@ export function ToyDetails() {
       <p>🧸</p>
       <h1>Toy : {toy.name}</h1>
       <h3>Price: ${toy.price}</h3>
+      <p>On Stock ? {toy.inStock}</p>
       <p>Date: {toy.createdAt}</p>
       <p>Categories: {toy.labels}</p>
       <Link to={`/toy/edit/${toy._id}`}>Edit</Link>

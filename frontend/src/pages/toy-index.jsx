@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
@@ -32,11 +33,11 @@ export function ToyIndex() {
       })
   }
 
-  function onAddToy() {
-    const toyToSave = toyService.getRandomCar()
+  function onAddRandomToy() {
+    const toyToSave = toyService.getRandomToy()
     saveToy(toyToSave)
       .then((savedToy) => {
-        showSuccessMsg(`Car added (id: ${savedToy._id})`)
+        showSuccessMsg(`Toy added (id: ${savedToy._id})`)
       })
       .catch((err) => {
         showErrorMsg('Cannot add toy')
@@ -75,12 +76,19 @@ export function ToyIndex() {
   return (
     <section>
       <h1>Home Page</h1>
+      <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
+      <Link to={`/toy/edit/`}>Add new Toy</Link>
+
       <ToyList
         toys={toys}
         onRemoveToy={onRemoveToy}
         onEditToy={onEditToy}
         addToCart={addToCart}
       />
+      {!toys.length && !isLoading && (
+        <h2 className="no-toys-title">No toys to show...</h2>
+      )}
+
       {isLoading && <Loader />}
     </section>
   )

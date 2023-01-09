@@ -1,7 +1,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
-const pageSize = 3
+const pageSize = 5
 const TOY_KEY = 'toyDB'
 const labels = [
   'On wheels',
@@ -23,6 +23,7 @@ export const toyService = {
   getEmptyToy,
   getDefaultFilter,
   getDefaultSort,
+  getRandomToy,
 }
 
 function query(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
@@ -77,19 +78,15 @@ function _createToys() {
 }
 
 function _createToy(name) {
-  const toy = getEmptyToy()
+  const toy = getRandomToy()
   toy._id = utilService.makeId()
   toy.name = name
-  toy.price = utilService.getRandomIntInclusive(1, 500)
-  toy.labels = labels
-  toy.createdAt = Date.now()
-  toy.inStock = utilService.getRandomIntInclusive(1, 4) >= 2 ? true : false
   console.log('Toy Created:', toy)
   return toy
 }
 
 function getEmptyToy() {
-  return { name: '', price: null, labels: [], createdAt: null }
+  return { name: '', price: '', labels: [], createdAt: null }
 }
 
 function getDefaultFilter() {
@@ -98,4 +95,14 @@ function getDefaultFilter() {
 
 function getDefaultSort() {
   return { name: '' }
+}
+
+function getRandomToy() {
+  const toy = getEmptyToy()
+  toy.name = 'Random ' + utilService.getRandomIntInclusive(4000, 8000)
+  toy.price = utilService.getRandomIntInclusive(1, 500)
+  toy.labels = labels
+  toy.createdAt = Date.now()
+  toy.inStock = utilService.getRandomIntInclusive(1, 4) >= 2 ? true : false
+  return toy
 }

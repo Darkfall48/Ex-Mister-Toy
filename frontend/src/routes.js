@@ -2,6 +2,7 @@
 import { AboutUs } from './pages/about-us'
 import { HomePage } from './pages/home-page'
 import { ToyDetails } from './pages/toy-details'
+import { ToyEdit } from './pages/toy-edit'
 import { ToyIndex } from './pages/toy-index'
 
 export default [
@@ -21,14 +22,14 @@ export default [
     path: '/toy/:toyId',
     component: ToyDetails,
   },
-  //   {
-  //     path: '/toy/edit',
-  //     component: ToyEdit,
-  //   },
-  //   {
-  //     path: '/toy/edit/:toyId',
-  //     component: ToyEdit,
-  //   },
+  {
+    path: '/toy/edit',
+    component: ToyEdit,
+  },
+  {
+    path: '/toy/edit/:toyId',
+    component: ToyEdit,
+  },
   //   {
   //     path: '/login',
   //     component: LoginSignup,
