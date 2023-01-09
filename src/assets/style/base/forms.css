@@ -1,0 +1,24 @@
+button {
+    cursor: pointer;
+    background-color: var(--clr2bg);
+    margin: 0.5em;
+    border: 0;
+    padding: 0.5em 0.8em;
+    border-radius: 4px;   
+}
+
+button:hover {
+    background-color: var(--clr2);
+    color: white;
+    transition: .3s;
+}
+
+button[disabled] {
+    background-color: var(--gray1);
+    color: black;
+    cursor: not-allowed;
+}
+input:focus {
+    background-color: var(--clr1bg);
+    transition: background-color 1s;
+}
