@@ -1,0 +1,12 @@
+/* Section */
+.toy-details-section {
+}
+
+/* In Stock */
+.instock-yes {
+  color: green;
+}
+
+.instock-no {
+  color: red;
+}

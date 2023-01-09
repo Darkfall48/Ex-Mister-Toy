@@ -1,0 +1,60 @@
+button {
+  cursor: pointer;
+}
+
+.btn {
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 1em;
+  /* background-color: var(--main-purple);
+    color: whitesmoke; */
+  border-radius: 8px;
+  /* border: none; */
+  padding: 5px;
+}
+
+a {
+  margin: 0.5em;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.a-btn {
+  font-size: 1.5em;
+  text-decoration: none;
+  width: fit-content;
+  /* background-color: var(--main-purple);
+    color: whitesmoke; */
+  padding: 20px;
+  border-radius: 8px;
+  transition: 0.3s;
+  max-height: 3em;
+}
+
+.a-btn:hover {
+  /* background-color: var(--main-purple-hvr);
+    color: whitesmoke; */
+}
+
+.a-btn:active {
+  /* color: rgba(255, 217, 0, 0.63); */
+  font-size: 0.99em;
+}
+
+.filter {
+  display: flex;
+  /* background-color: white; */
+  border-radius: 25px;
+  width: fit-content;
+  padding: 10px 20px;
+  justify-self: center;
+  place-items: center;
+
+  gap: 10px;
+
+  border: 1px rgba(127, 125, 125, 0.644) solid;
+  box-shadow: 0px 0px 5px -1px rgba(181, 178, 178, 0.71);
+  /* -webkit-box-shadow: 0px 0px 5px -1px rgba(181, 178, 178, 0.71);
+    -moz-box-shadow: 0px 0px 5px -1px rgba(181, 178, 178, 0.71); */
+}

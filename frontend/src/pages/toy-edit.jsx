@@ -56,6 +56,14 @@ export function ToyEdit() {
       })
   }
 
+  function GoBackButton() {
+    return (
+      <Link to={toyToEdit._id ? '/toy/' + toyToEdit._id : '/toy'}>
+        {toyToEdit._id ? 'Cancel' : 'Go Back'}
+      </Link>
+    )
+  }
+
   return (
     <section className="toy-edit">
       {isLoading && <Loader />}
@@ -85,7 +93,7 @@ export function ToyEdit() {
 
             <div>
               <button>{toyToEdit._id ? 'Save' : 'Add'}</button>
-              <Link to="/toy">Cancel</Link>
+              <GoBackButton />
             </div>
           </form>
         </>

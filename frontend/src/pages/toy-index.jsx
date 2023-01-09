@@ -1,15 +1,16 @@
+// Libraries
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
+// Services
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { toyService } from '../services/toy.service'
-
-import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
-import { ADD_TO_CART } from '../store/reducers/toy.reducer'
-
+// Components
 import { Loader } from '../cmps/loader'
 import { ToyList } from '../cmps/toy-list'
+// Store
+import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
+import { ADD_TO_CART } from '../store/reducers/toy.reducer'
 
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
@@ -74,22 +75,29 @@ export function ToyIndex() {
   }
 
   return (
-    <section>
-      <h1>Home Page</h1>
-      <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
-      <Link to={`/toy/edit/`}>Add new Toy</Link>
-
-      <ToyList
-        toys={toys}
-        onRemoveToy={onRemoveToy}
-        onEditToy={onEditToy}
-        addToCart={addToCart}
-      />
-      {!toys.length && !isLoading && (
-        <h2 className="no-toys-title">No toys to show...</h2>
-      )}
+    <section className="toy-index-section">
+      <h1 className="toy-index-title-main">Toys Page</h1>
 
       {isLoading && <Loader />}
+      {!toys.length && !isLoading && (
+        <h2 className="toy-index-title-nothing">No toys to show...</h2>
+      )}
+
+      <article className="toy-index-buttons">
+        <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
+        <Link to={`/toy/edit/`}>Add new Toy</Link>
+      </article>
+
+      {!isLoading && (
+        <article className="toy-index-toys">
+          <ToyList
+            toys={toys}
+            onRemoveToy={onRemoveToy}
+            onEditToy={onEditToy}
+            addToCart={addToCart}
+          />
+        </article>
+      )}
     </section>
   )
 }

@@ -1,8 +1,11 @@
 * {
   box-sizing: border-box;
+  text-align: center;
 }
 
 html {
+  letter-spacing: 0.48px;
+  line-height: 1.13;
 }
 
 body {
@@ -16,7 +19,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin: .5em 0 .5em;
+  margin: 0.5em 0 0.5em;
   font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
@@ -30,22 +33,24 @@ a {
 }
 a:hover {
   text-decoration: underline;
-  color: var(--clr2bg)
+  color: var(--clr2bg);
 }
 
-
+ul {
+  list-style: none;
+}
 
 /* Dont stretch my Media */
 img,
 embed,
 video,
 object {
-  max-width: 100%
+  max-width: 100%;
 }
 
 /* Simple and useful CSS Debugging Technique */
 .debug * {
-  outline: 1px solid gold
+  outline: 1px solid gold;
 }
 
 a.active {

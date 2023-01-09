@@ -1,12 +1,18 @@
 /* Setup */
-@import 'setup/vars.css';
+@import 'setup/normalize.css';
 @import 'setup/typography.css';
+@import 'setup/vars.css';
 
 /* Base */
 @import 'base/base.css';
+@import 'base/button.css';
 @import 'base/helpers.css';
 @import 'base/layout.css';
 @import 'base/forms.css';
+
+/* Pages */
+@import 'pages/toy-index.css';
+@import 'pages/toy-details.css';
 
 /* Components */
 @import 'cmps/app-header.css';

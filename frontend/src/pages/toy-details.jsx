@@ -27,16 +27,26 @@ export function ToyDetails() {
       })
   }
 
+  function StockDetail() {
+    return (
+      <p className={toy.inStock ? 'instock-yes' : 'instock-no'}>
+        {toy.inStock ? 'In Stock' : 'Not in Stock'}
+      </p>
+    )
+  }
+
   if (!toy) return <Loader />
   return (
-    <section className="toy-details">
+    <section className="toy-details-section">
       <p>🧸</p>
       <h1>Toy : {toy.name}</h1>
       <h3>Price: ${toy.price}</h3>
-      <p>On Stock ? {toy.inStock}</p>
+      <StockDetail />
       <p>Date: {toy.createdAt}</p>
       <p>Categories: {toy.labels}</p>
+
       <Link to={`/toy/edit/${toy._id}`}>Edit</Link>
+      <Link to="/toy">Go Back</Link>
     </section>
   )
 }
