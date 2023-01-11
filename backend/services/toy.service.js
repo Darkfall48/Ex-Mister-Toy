@@ -5,11 +5,12 @@ const PAGE_SIZE = 10
 
 module.exports = {
   query,
-  //   get,
+  get,
   //   remove,
   //   save,
 }
 
+//? Query - List/Filtering
 function query(querry) {
   if (!querry) return Promise.resolve(toys)
 
@@ -51,7 +52,6 @@ function query(querry) {
   const currPage = +pageIdx
   const toysLength = filteredToys.length
   const totalPages = Math.ceil(toysLength / +pageSize)
-
   if (pageIdx !== undefined) {
     const startIdx = pageIdx * +pageSize
     filteredToys = filteredToys.slice(startIdx, +pageSize + startIdx)
@@ -64,4 +64,10 @@ function query(querry) {
     currToysNumber: filteredToys.length,
     toys: filteredToys,
   })
+}
+
+//? Get - Read
+function get(toyId) {
+  const toy = toys.find((toy) => toy._id === toyId)
+  return Promise.resolve(toy)
 }
