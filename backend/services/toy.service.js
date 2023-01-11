@@ -1,6 +1,8 @@
+// Libraries
 const fs = require('fs')
-
+// Data
 let toys = require('../data/toysDB.json')
+// Global Variables
 const PAGE_SIZE = 10
 
 module.exports = {
@@ -80,7 +82,7 @@ function save(toy) {
     if (toy.inStock === undefined)
       toy.inStock = _getRandomIntInclusive(1, 4) >= 2 ? true : false
 
-    toy.createdAt = new Date(Date.now())
+    toy.createdAt = Date.now()
     toy._id = _makeId()
 
     toys.unshift(toy)

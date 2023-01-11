@@ -7,7 +7,6 @@ const toyService = require('./services/toy.service.js')
 // Server Config
 const path = require('path')
 const app = express()
-
 const SERVER_PORT = process.env.PORT || 3030
 
 //* Express App Config
