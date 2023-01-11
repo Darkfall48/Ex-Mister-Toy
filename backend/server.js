@@ -56,6 +56,20 @@ app.get('/api/toy/:toyId', (req, res) => {
     })
 })
 
+//? Remove - Delete
+app.delete('/api/toy/:toyId', (req, res) => {
+  const { toyId } = req.params
+  toyService
+    .remove(toyId)
+    .then(() => {
+      res.end('Done!')
+    })
+    .catch((err) => {
+      console.log('Had issues deleting toy', err)
+      res.status(404).send({ msg: 'Had issues deleting toy' })
+    })
+})
+
 //* Cloud Config
 app.get('/**', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))

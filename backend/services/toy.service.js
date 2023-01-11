@@ -6,7 +6,7 @@ const PAGE_SIZE = 10
 module.exports = {
   query,
   get,
-  //   remove,
+  remove,
   //   save,
 }
 
@@ -71,4 +71,26 @@ function get(toyId) {
   const toy = toys.find((toy) => toy._id === toyId)
   if (!toy) return Promise.reject('Toy not found')
   return Promise.resolve(toy)
+}
+
+//? Remove - Delete
+function remove(toyId) {
+  const idx = toys.findIndex((toy) => toy._id === toyId)
+  console.log('Toy:', idx)
+  if (idx === -1) return Promise.reject('No Such Toy!')
+  toys.splice(idx, 1)
+  _writeToysToFile()
+  return Promise.resolve()
+}
+
+//? Private Functions
+function _writeToysToFile() {
+  return new Promise((res, rej) => {
+    const data = JSON.stringify(toys, null, 2)
+    fs.writeFile('data/toysDB.json', data, (err) => {
+      if (err) return rej(err)
+      console.log('File written successfully\n')
+      res()
+    })
+  })
 }
