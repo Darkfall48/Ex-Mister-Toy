@@ -7,7 +7,7 @@ module.exports = {
   query,
   get,
   remove,
-  //   save,
+  save,
 }
 
 //? Query - List/Filtering/Sorting/Paging
@@ -66,6 +66,28 @@ function query(querry) {
   })
 }
 
+//? Save - Save/Edit
+function save(toy) {
+  if (toy._id) {
+    const idx = toys.findIndex((currToy) => currToy._id === toy._id)
+    if (!idx) return Promise.reject('No such Toy!')
+    toys[idx] = { ...toys[idx], ...toy }
+  } else {
+    // In case we want to make a random toy
+    if (toy.name === undefined)
+      toy.name = 'Random ' + _getRandomIntInclusive(4000, 8000)
+    if (toy.price === undefined) toy.price = _getRandomIntInclusive(1, 500)
+    if (toy.inStock === undefined)
+      toy.inStock = _getRandomIntInclusive(1, 4) >= 2 ? true : false
+
+    toy.createdAt = new Date(Date.now())
+    toy._id = _makeId()
+
+    toys.unshift(toy)
+  }
+  return _writeToysToFile().then(() => toy)
+}
+
 //? Get - Read
 function get(toyId) {
   const toy = toys.find((toy) => toy._id === toyId)
@@ -76,7 +98,6 @@ function get(toyId) {
 //? Remove - Delete
 function remove(toyId) {
   const idx = toys.findIndex((toy) => toy._id === toyId)
-  console.log('Toy:', idx)
   if (idx === -1) return Promise.reject('No Such Toy!')
   toys.splice(idx, 1)
   _writeToysToFile()
@@ -93,4 +114,20 @@ function _writeToysToFile() {
       res()
     })
   })
+}
+
+function _makeId(length = 5) {
+  let text = ''
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
+
+function _getRandomIntInclusive(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
 }

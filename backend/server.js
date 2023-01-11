@@ -37,8 +37,36 @@ app.get('/api/toy', (req, res) => {
       res.send(toys)
     })
     .catch((err) => {
-      console.log('Error:', err)
-      res.status(404).send('Cannot get toys')
+      console.log('Had issues getting toy:', err)
+      res.status(404).send({ msg: 'Had issues getting toy' })
+    })
+})
+
+//? Create - Save
+app.post('/api/toy', (req, res) => {
+  const toy = req.body
+  toyService
+    .save(toy)
+    .then((savedToy) => {
+      res.send(savedToy)
+    })
+    .catch((err) => {
+      console.log('Had issues adding toy:', err)
+      res.status(404).send({ msg: 'Had issues adding toy' })
+    })
+})
+
+//? Update - Edit
+app.put('/api/toy', (req, res) => {
+  const toy = req.body
+  toyService
+    .save(toy)
+    .then((savedToy) => {
+      res.send(savedToy)
+    })
+    .catch((err) => {
+      console.log('Had issues updating toy:', err)
+      res.status(404).send({ msg: 'Had issues updating toy' })
     })
 })
 
@@ -51,8 +79,8 @@ app.get('/api/toy/:toyId', (req, res) => {
       res.send(toy)
     })
     .catch((err) => {
-      console.log('Error:', err)
-      res.status(404).send('Cannot get toy')
+      console.log('Had issues getting toy:', err)
+      res.status(404).send({ msg: 'Had issues getting toy' })
     })
 })
 
@@ -65,7 +93,7 @@ app.delete('/api/toy/:toyId', (req, res) => {
       res.end('Done!')
     })
     .catch((err) => {
-      console.log('Had issues deleting toy', err)
+      console.log('Had issues deleting toy:', err)
       res.status(404).send({ msg: 'Had issues deleting toy' })
     })
 })
