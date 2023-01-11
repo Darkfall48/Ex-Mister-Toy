@@ -1,6 +1,7 @@
 const fs = require('fs')
 
-var toys = require('../data/toysDB.json')
+let toys = require('../data/toysDB.json')
+const PAGE_SIZE = 10
 
 module.exports = {
   query,
@@ -28,13 +29,13 @@ function query(querry) {
     )
   }
   if (labels) {
-    const labels = labels.split(',')
+    const labelsArr = labels.split(',')
     filteredToys = filteredToys.filter((toy) =>
-      labels.every((i) => toy.labels.includes(i))
+      labelsArr.every((i) => toy.labels.includes(i))
     )
   }
 
-  // Sorting
+  //* Sorting
   filteredToys.sort((toy1, toy2) => {
     const { sortBy, sortValue } = querry
     console.log('Sort by:', sortBy, 'with', sortValue)
@@ -44,5 +45,23 @@ function query(querry) {
     if (sortBy === 'createdAt') return (toy1.createdAt - toy2.createdAt) * dir
   })
 
-  return Promise.resolve(filteredToys)
+  //* Paging
+  let { pageSize, pageIdx } = querry
+  if (!pageSize) pageSize = PAGE_SIZE
+  const currPage = +pageIdx
+  const toysLength = filteredToys.length
+  const totalPages = Math.ceil(toysLength / +pageSize)
+
+  if (pageIdx !== undefined) {
+    const startIdx = pageIdx * +pageSize
+    filteredToys = filteredToys.slice(startIdx, +pageSize + startIdx)
+  }
+
+  return Promise.resolve({
+    totalToysNumber: toysLength,
+    totalPages,
+    currPage,
+    currToysNumber: filteredToys.length,
+    toys: filteredToys,
+  })
 }
