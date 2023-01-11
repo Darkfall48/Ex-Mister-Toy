@@ -41,7 +41,7 @@ function query(querry) {
   //* Sorting
   filteredToys.sort((toy1, toy2) => {
     const { sortBy, sortValue } = querry
-    console.log('Sort by:', sortBy, 'with', sortValue)
+    // console.log('Sort by:', sortBy, 'with', sortValue)
     const dir = sortValue ? 1 : -1
     if (sortBy === 'name') return toy1.name.localeCompare(toy2.name) * dir
     if (sortBy === 'price') return (toy1.price - toy2.price) * dir
@@ -72,7 +72,8 @@ function query(querry) {
 function save(toy) {
   if (toy._id) {
     const idx = toys.findIndex((currToy) => currToy._id === toy._id)
-    if (!idx) return Promise.reject('No such Toy!')
+    console.log('Idx:', idx)
+    if (idx === -1) return Promise.reject('No such Toy!')
     toys[idx] = { ...toys[idx], ...toy }
   } else {
     // In case we want to make a random toy

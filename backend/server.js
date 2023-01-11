@@ -27,9 +27,10 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/', (req, res) => res.send('You are not supposed to see me:('))
 
 //? Query - List/Filtering/Sorting/Paging
-app.get('/api', (req, res) => res.redirect('/api/toy'))
+// app.get('/api', (req, res) => res.redirect('/api/toy'))
 app.get('/api/toy', (req, res) => {
   const { query } = req
+  console.log('Result', query)
   toyService
     .query(query)
     .then((toys) => {

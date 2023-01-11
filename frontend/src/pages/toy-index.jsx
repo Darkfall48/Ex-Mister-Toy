@@ -19,7 +19,6 @@ export function ToyIndex() {
     (storeState) => storeState.toyModule.shoppingCart
   )
   const dispatch = useDispatch()
-
   useEffect(() => {
     onLoadToys()
   }, [])

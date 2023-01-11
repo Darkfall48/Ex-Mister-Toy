@@ -1,108 +1,56 @@
-import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
+import { utilService } from './util.service.js'
+import { userService } from './user.service.js'
+import { httpService } from './http.service.js'
 
-const pageSize = 5
-const TOY_KEY = 'toyDB'
-const labels = [
-  'On wheels',
-  'Box game',
-  'Art',
-  'Baby',
-  'Doll',
-  'Puzzle',
-  'Outdoor',
-  'Battery Powered',
-]
-_createToys()
+const STORAGE_KEY = 'toyDB'
+const BASE_URL = 'toy/'
 
 export const toyService = {
   query,
   get,
-  remove,
   save,
+  remove,
   getEmptyToy,
-  getDefaultFilter,
-  getDefaultSort,
   getRandomToy,
+  getDefaultFilter,
 }
 
-function query(filterBy = getDefaultFilter(), sortBy = getDefaultSort()) {
-  console.log(filterBy)
-  return storageService.query(TOY_KEY).then((toys) => {
-    let filteredToys = toys
-    if (filterBy.name) {
-      const regex = new RegExp(filterBy.name, 'i')
-      filteredToys = filteredToys.filter((toy) => regex.test(toy.name))
-    }
-    if (sortBy.name > 0) {
-      filteredToys = filteredToys.sort((a, b) => a.name.localeCompare(b.name))
-    }
-    if (sortBy.name < 0) {
-      filteredToys = filteredToys.sort((a, b) => a.name.localeCompare(b.name))
-    }
-    // Paging
-    // const totalPages = Math.ceil(toys.length / pageSize)
-    if (filterBy.pageIdx !== undefined) {
-      const startIdx = filterBy.pageIdx * pageSize
-      filteredToys = filteredToys.slice(startIdx, pageSize + startIdx)
-    }
-    return Promise.resolve(filteredToys)
-  })
+function query(filterBy = getDefaultFilter()) {
+  const { name, maxPrice, inStock, labels } = filterBy
+  const queryParams = `?name=${name}&maxPrice=${maxPrice}&inStock=${inStock}&labels=${labels}`
+  return httpService.get(BASE_URL + queryParams).then((res) => res.toys)
 }
 
 function get(toyId) {
-  return storageService.get(TOY_KEY, toyId)
+  return httpService.get(BASE_URL + toyId)
+}
+
+function getRandomToy() {
+  return httpService.post(BASE_URL)
 }
 
 function remove(toyId) {
-  return storageService.remove(TOY_KEY, toyId)
+  // return Promise.reject('Not now!')
+  return httpService.delete(BASE_URL + toyId)
 }
 
 function save(toy) {
   if (toy._id) {
-    return storageService.put(TOY_KEY, toy)
+    return httpService.put(BASE_URL, toy)
   } else {
-    return storageService.post(TOY_KEY, toy)
+    // when switching to backend - remove the next line
+    // toy.owner = userService.getLoggedinUser()
+    return httpService.post(BASE_URL, toy)
   }
 }
 
-function _createToys() {
-  let toys = utilService.loadFromStorage(TOY_KEY)
-  if (!toys || !toys.length) {
-    toys = []
-    toys.push(_createToy('toy1'))
-    toys.push(_createToy('toy2'))
-    toys.push(_createToy('toy3'))
-    utilService.saveToStorage(TOY_KEY, toys)
-  }
+function getDefaultFilter() {
+  return { name: '', maxPrice: '', inStock: '', labels: '', pageIdx: '' }
 }
-
-function _createToy(name) {
-  const toy = getRandomToy()
-  toy._id = utilService.makeId()
-  toy.name = name
-  console.log('Toy Created:', toy)
-  return toy
-}
-
 function getEmptyToy() {
   return { name: '', price: '', labels: [], createdAt: null }
 }
 
-function getDefaultFilter() {
-  return { name: '', price: '', pageIdx: '' }
-}
-
-function getDefaultSort() {
-  return { name: '' }
-}
-
-function getRandomToy() {
-  const toy = getEmptyToy()
-  toy.name = 'Random ' + utilService.getRandomIntInclusive(4000, 8000)
-  toy.price = utilService.getRandomIntInclusive(1, 500)
-  toy.labels = labels
-  toy.createdAt = Date.now()
-  toy.inStock = utilService.getRandomIntInclusive(1, 4) >= 2 ? true : false
-  return toy
-}
+// TEST DATA
+// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 6', price: 980}).then(x => console.log(x))
