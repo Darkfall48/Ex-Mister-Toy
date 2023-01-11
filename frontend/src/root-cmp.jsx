@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from './store/store'
 import routes from './routes'
 // Style
-import './assets/style/main.css'
+import './assets/style/main.scss'
 // Components
 import { AppFooter } from './cmps/app-footer'
 import { AppHeader } from './cmps/app-header'

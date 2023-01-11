@@ -1,0 +1,27 @@
+/* Setup */
+@import 'setup/normalize';
+@import 'setup/typography';
+@import 'setup/vars';
+
+/* Base */
+@import 'base/base';
+@import 'base/button';
+@import 'base/helpers';
+@import 'base/layout';
+@import 'base/forms';
+
+/* Pages */
+@import 'pages/toy-index';
+@import 'pages/toy-details';
+
+/* Components */
+@import 'cmps/app-header';
+@import 'cmps/toggle-btn';
+@import 'cmps/user-msg';
+@import 'cmps/loader';
+
+@import 'cmps/toy-filter';
+@import 'cmps/toy-list';
+@import 'cmps/toy-preview';
+
+@import 'cmps/shopping-cart';
