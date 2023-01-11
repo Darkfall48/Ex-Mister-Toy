@@ -10,7 +10,7 @@ module.exports = {
   //   save,
 }
 
-//? Query - List/Filtering
+//? Query - List/Filtering/Sorting/Paging
 function query(querry) {
   if (!querry) return Promise.resolve(toys)
 
@@ -69,5 +69,6 @@ function query(querry) {
 //? Get - Read
 function get(toyId) {
   const toy = toys.find((toy) => toy._id === toyId)
+  if (!toy) return Promise.reject('Toy not found')
   return Promise.resolve(toy)
 }
