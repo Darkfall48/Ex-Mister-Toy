@@ -30,9 +30,9 @@ app.get('/', (req, res) => res.send('You are not supposed to see me:('))
 //? Query - List/Filtering
 app.get('/api', (req, res) => res.redirect('/api/toy'))
 app.get('/api/toy', (req, res) => {
-  const filterBy = req.query
+  const { query } = req
   toyService
-    .query(filterBy)
+    .query(query)
     .then((toys) => {
       res.send(toys)
     })
