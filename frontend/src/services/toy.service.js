@@ -1,9 +1,6 @@
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { httpService } from './http.service.js'
 
-const STORAGE_KEY = 'toyDB'
 const BASE_URL = 'toy/'
 
 export const toyService = {
@@ -14,11 +11,29 @@ export const toyService = {
   getEmptyToy,
   getRandomToy,
   getDefaultFilter,
+  getDefaultSort,
+  getDefaultPage,
+  getFromSearchParams,
 }
 
-function query(filterBy = getDefaultFilter()) {
-  const { name, maxPrice, inStock, labels } = filterBy
-  const queryParams = `?name=${name}&maxPrice=${maxPrice}&inStock=${inStock}&labels=${labels}`
+function query({
+  filter = getDefaultFilter(),
+  sort = getDefaultSort(),
+  page = getDefaultPage(),
+}) {
+  console.log(filter)
+  // Getting the values
+  const { name, maxPrice, inStock, labels } = filter
+  const { sortBy, sortValue } = sort
+  const { pageSize, pageIdx } = page
+
+  // Preparing the query params string
+  const filterParams = `name=${name}&maxPrice=${maxPrice}&inStock=${inStock}&labels=${labels}`
+  const sortParams = `sortBy=${sortBy}&sortValue=${sortValue}`
+  const pageParams = `pageSize=${pageSize}&pageIdx=${pageIdx}`
+
+  const queryParams = '?' + filterParams + '&' + sortParams + '&' + pageParams
+
   return httpService.get(BASE_URL + queryParams).then((res) => res.toys)
 }
 
@@ -31,26 +46,43 @@ function getRandomToy() {
 }
 
 function remove(toyId) {
-  // return Promise.reject('Not now!')
   return httpService.delete(BASE_URL + toyId)
 }
 
 function save(toy) {
-  if (toy._id) {
-    return httpService.put(BASE_URL, toy)
-  } else {
-    // when switching to backend - remove the next line
-    // toy.owner = userService.getLoggedinUser()
-    return httpService.post(BASE_URL, toy)
-  }
+  if (toy._id) return httpService.put(BASE_URL, toy)
+  return httpService.post(BASE_URL, toy)
 }
 
 function getDefaultFilter() {
   return { name: '', maxPrice: '', inStock: '', labels: '', pageIdx: '' }
 }
+
+function getDefaultSort() {
+  return { sortBy: '', sortValue: '' }
+}
+
+function getDefaultPage() {
+  return { pageSize: '', pageIdx: '' }
+}
+
 function getEmptyToy() {
   return { name: '', price: '', labels: [], createdAt: null }
 }
 
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 6', price: 980}).then(x => console.log(x))
+function getFromSearchParams(searchParams) {
+  const filter = { ...getDefaultFilter() }
+  const sort = { ...getDefaultSort() }
+  const page = { ...getDefaultPage() }
+
+  for (const field in filter) {
+    filter[field] = searchParams.get(field) || ''
+  }
+  for (const field in sort) {
+    sort[field] = searchParams.get(field) || ''
+  }
+  for (const field in page) {
+    page[field] = searchParams.get(field) || ''
+  }
+  return { filter, sort, page }
+}

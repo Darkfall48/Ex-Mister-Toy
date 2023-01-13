@@ -1,6 +1,6 @@
 // Libraries
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 // Services
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
@@ -8,23 +8,27 @@ import { toyService } from '../services/toy.service'
 // Components
 import { Loader } from '../cmps/loader'
 import { ToyList } from '../cmps/toy-list'
+import { ToyFilter } from '../cmps/toy-filter'
 // Store
 import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
 import { ADD_TO_CART } from '../store/reducers/toy.reducer'
 
 export function ToyIndex() {
-  const toys = useSelector((storeState) => storeState.toyModule.toys)
-  const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
-  const shoppingCart = useSelector(
-    (storeState) => storeState.toyModule.shoppingCart
+  const { toys, filterBy, isLoading, shoppingCart } = useSelector(
+    (storeState) => storeState.toyModule
   )
-  const dispatch = useDispatch()
-  useEffect(() => {
-    onLoadToys()
-  }, [])
+  const [searchParams, setSearchParams] = useSearchParams()
+  const queryFilterBy = toyService.getFromSearchParams(searchParams)
+  console.log('Search Params', queryFilterBy)
 
-  function onLoadToys(filterBy) {
-    loadToys(filterBy)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    onLoadToys(queryFilterBy)
+  }, [searchParams])
+
+  function onLoadToys(params) {
+    loadToys(params)
       .then(() => {
         showSuccessMsg('Toys loaded')
       })
@@ -82,20 +86,23 @@ export function ToyIndex() {
         <h2 className="toy-index-title-nothing">No toys to show...</h2>
       )}
 
-      <article className="toy-index-buttons">
-        <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
-        <Link to={`/toy/edit/`}>Add new Toy</Link>
-      </article>
-
       {!isLoading && (
-        <article className="toy-index-toys">
-          <ToyList
-            toys={toys}
-            onRemoveToy={onRemoveToy}
-            onEditToy={onEditToy}
-            addToCart={addToCart}
-          />
-        </article>
+        <>
+          <ToyFilter />
+          <article className="toy-index-buttons">
+            <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
+            <Link to={`/toy/edit/`}>Add new Toy</Link>
+          </article>
+
+          <article className="toy-index-toys">
+            <ToyList
+              toys={toys}
+              onRemoveToy={onRemoveToy}
+              onEditToy={onEditToy}
+              addToCart={addToCart}
+            />
+          </article>
+        </>
       )}
     </section>
   )

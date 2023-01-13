@@ -1,45 +1,15 @@
 [
   {
-    "name": "Random 5925",
-    "price": 154,
+    "name": "Buddy McFluffernutter",
+    "price": 65,
+    "labels": [
+      "Doll",
+      "Box game",
+      "Battery Powered"
+    ],
+    "createdAt": 1673405377036,
     "inStock": true,
-    "createdAt": 1673450617614,
-    "_id": "3zo3Y"
-  },
-  {
-    "name": "Random 6810",
-    "price": 283,
-    "inStock": true,
-    "createdAt": 1673450617609,
-    "_id": "wrhow"
-  },
-  {
-    "name": "Random 4137",
-    "price": 22,
-    "inStock": true,
-    "createdAt": 1673450535663,
-    "_id": "Xi3Xx"
-  },
-  {
-    "name": "Random 5025",
-    "price": 460,
-    "inStock": true,
-    "createdAt": 1673450535658,
-    "_id": "yaxDz"
-  },
-  {
-    "name": "Random 5506",
-    "price": 14,
-    "inStock": true,
-    "createdAt": 1673450526078,
-    "_id": "A9L6z"
-  },
-  {
-    "name": "Random 5523",
-    "price": 481,
-    "inStock": true,
-    "createdAt": 1673450526058,
-    "_id": "UlJ2L"
+    "_id": "jiZyNl5"
   },
   {
     "name": "Mr. Wobbles",
@@ -54,30 +24,6 @@
     "_id": "jiZyNl1"
   },
   {
-    "name": "Fuzzy Wuzzy",
-    "price": 108,
-    "labels": [
-      "Baby",
-      "Puzzle",
-      "Battery Powered"
-    ],
-    "createdAt": 1673405374036,
-    "inStock": false,
-    "_id": "jiZyNl2"
-  },
-  {
-    "name": "Squishy McFluffernutter",
-    "price": 20,
-    "labels": [
-      "Art",
-      "Puzzle",
-      "Battery Powered"
-    ],
-    "createdAt": 1673405375036,
-    "inStock": true,
-    "_id": "jiZyNl3"
-  },
-  {
     "name": "Professor Fluffington",
     "price": 12.5,
     "labels": [
@@ -90,15 +36,15 @@
     "_id": "jiZyNl4"
   },
   {
-    "name": "Buddy McFluffernutter",
-    "price": 65,
+    "name": "Squishy McFluffernutter",
+    "price": 20,
     "labels": [
-      "Doll",
-      "Box game",
+      "Art",
+      "Puzzle",
       "Battery Powered"
     ],
-    "createdAt": 1673405377036,
+    "createdAt": 1673405375036,
     "inStock": true,
-    "_id": "jiZyNl5"
+    "_id": "jiZyNl3"
   }
 ]
