@@ -1,96 +1,24 @@
 [
   {
-    "name": "Random 4585",
-    "price": 286,
+    "name": "Mr. Wobbles",
+    "price": 24.99,
+    "labels": ["On wheels", "Box game", "Battery Powered"],
+    "createdAt": 1673405373036,
+    "inStock": true,
+    "_id": "jiZyNl1"
+  },
+  {
+    "name": "Fuzzy Wuzzy",
+    "price": 108,
+    "labels": ["Baby", "Puzzle", "Battery Powered"],
+    "createdAt": 1673405374036,
     "inStock": false,
-    "createdAt": 1673663390494,
-    "_id": "VGI5G"
-  },
-  {
-    "name": "Random 5990",
-    "price": 130,
-    "inStock": false,
-    "createdAt": 1673663390493,
-    "_id": "bOtsT"
-  },
-  {
-    "name": "Random 4611",
-    "price": 199,
-    "inStock": false,
-    "createdAt": 1673663390276,
-    "_id": "koeDD"
-  },
-  {
-    "name": "Random 7267",
-    "price": 341,
-    "inStock": true,
-    "createdAt": 1673663390275,
-    "_id": "Zx6xU"
-  },
-  {
-    "name": "Random 5327",
-    "price": 129,
-    "inStock": true,
-    "createdAt": 1673663390112,
-    "_id": "Xf6A9"
-  },
-  {
-    "name": "Random 7085",
-    "price": 86,
-    "inStock": true,
-    "createdAt": 1673663390111,
-    "_id": "ZbQCN"
-  },
-  {
-    "name": "Random 5251",
-    "price": 280,
-    "inStock": false,
-    "createdAt": 1673663389661,
-    "_id": "plW0D"
-  },
-  {
-    "name": "Random 4375",
-    "price": 265,
-    "inStock": true,
-    "createdAt": 1673663389660,
-    "_id": "yKlZv"
-  },
-  {
-    "name": "Random 4183",
-    "price": 79,
-    "inStock": true,
-    "createdAt": 1673663389087,
-    "_id": "K17uO"
-  },
-  {
-    "name": "Random 7475",
-    "price": 91,
-    "inStock": true,
-    "createdAt": 1673663389086,
-    "_id": "GiTvv"
-  },
-  {
-    "name": "Random 7415",
-    "price": 212,
-    "inStock": false,
-    "createdAt": 1673663388492,
-    "_id": "nFsic"
-  },
-  {
-    "name": "Random 5698",
-    "price": 404,
-    "inStock": true,
-    "createdAt": 1673663388448,
-    "_id": "fVG2H"
+    "_id": "jiZyNl2"
   },
   {
     "name": "Squishy McFluffernutter",
     "price": 20,
-    "labels": [
-      "Art",
-      "Puzzle",
-      "Battery Powered"
-    ],
+    "labels": ["Art", "Puzzle", "Battery Powered"],
     "createdAt": 1673405375036,
     "inStock": true,
     "_id": "jiZyNl3"
@@ -98,35 +26,15 @@
   {
     "name": "Professor Fluffington",
     "price": 12.5,
-    "labels": [
-      "On wheels",
-      "Baby",
-      "Outdoor"
-    ],
+    "labels": ["On wheels", "Baby", "Outdoor"],
     "createdAt": 1673405376036,
     "inStock": false,
     "_id": "jiZyNl4"
   },
   {
-    "name": "Mr. Wobbles",
-    "price": 24.99,
-    "labels": [
-      "On wheels",
-      "Box game",
-      "Battery Powered"
-    ],
-    "createdAt": 1673405373036,
-    "inStock": true,
-    "_id": "jiZyNl1"
-  },
-  {
     "name": "Buddy McFluffernutter",
     "price": 65,
-    "labels": [
-      "Doll",
-      "Box game",
-      "Battery Powered"
-    ],
+    "labels": ["Doll", "Box game", "Battery Powered"],
     "createdAt": 1673405377036,
     "inStock": true,
     "_id": "jiZyNl5"
