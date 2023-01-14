@@ -20,8 +20,10 @@ function query({
   filter = getDefaultFilter(),
   sort = getDefaultSort(),
   page = getDefaultPage(),
-}) {
-  console.log(filter)
+} = {}) {
+  console.log('Filter:', filter)
+  console.log('Sort:', sort)
+  console.log('Page', page)
   // Getting the values
   const { name, maxPrice, inStock, labels } = filter
   const { sortBy, sortValue } = sort
@@ -55,7 +57,7 @@ function save(toy) {
 }
 
 function getDefaultFilter() {
-  return { name: '', maxPrice: '', inStock: '', labels: '', pageIdx: '' }
+  return { name: '', maxPrice: '', inStock: '', labels: '' }
 }
 
 function getDefaultSort() {

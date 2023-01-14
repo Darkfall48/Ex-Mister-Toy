@@ -37,6 +37,29 @@ export function ToyIndex() {
       })
   }
 
+  function onSetFilter(params) {
+    const { filter, sort, page } = params
+    if (filter || sort || page) {
+      let queryString = ''
+      if (filter) queryString += buildQueryString(filter)
+
+      if (sort) queryString += '&' + buildQueryString(sort)
+
+      if (page) queryString += '&' + buildQueryString(page)
+
+      console.log('Querry String after filtered:', queryString)
+      setSearchParams(queryString)
+    }
+  }
+
+  function buildQueryString(obj) {
+    return Object.keys(obj)
+      .map(
+        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(obj[key])
+      )
+      .join('&')
+  }
+
   function onAddRandomToy() {
     const toyToSave = toyService.getRandomToy()
     saveToy(toyToSave)
@@ -81,6 +104,7 @@ export function ToyIndex() {
     <section className="toy-index-section">
       <h1 className="toy-index-title-main">Toys Page</h1>
 
+      <ToyFilter filterBy={queryFilterBy} onSetFilter={onSetFilter} />
       {isLoading && <Loader />}
       {!toys.length && !isLoading && (
         <h2 className="toy-index-title-nothing">No toys to show...</h2>
@@ -88,7 +112,6 @@ export function ToyIndex() {
 
       {!isLoading && (
         <>
-          <ToyFilter />
           <article className="toy-index-buttons">
             <button onClick={onAddRandomToy}>Add random Toy 🧸</button>
             <Link to={`/toy/edit/`}>Add new Toy</Link>
