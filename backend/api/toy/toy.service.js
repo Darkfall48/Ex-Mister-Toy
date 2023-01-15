@@ -23,10 +23,10 @@ async function query(query) {
   try {
     // TODO: FILTERING/SORTING/PAGING
     const { name, maxPrice, inStock, labels, sortBy, sortValue } = query
-    const sortCriteria = { [sortBy ? sortBy : createdAt]: sortValue ? 1 : -1 }
+    const sortCriteria = { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
     const filterCriteria = {
       //! KNOWN ISSUE: Name field must have something in front end
-      name: { $regex: name, $options: 'i' },
+      name: { $regex: name ? name : '', $options: 'i' },
       price: { $lt: maxPrice ? +maxPrice : Infinity },
     }
     const collection = await dbService.getCollection(TOYS_DB)
