@@ -1,20 +1,19 @@
-// Services
-const dbService = require('../../services/db.service')
+//? Services
 const logger = require('../../services/logger.service')
+const dbService = require('../../services/db.service')
 const utilService = require('../../services/util.service')
-// Data
-// let toys = require('../../data/toysDB.json')
+//? Data
 const ObjectId = require('mongodb').ObjectId
-// Global Variables
+//? Global Variables
 const PAGE_SIZE = 10
 const TOYS_DB = 'toys_col'
 
 module.exports = {
   query,
-  // remove,
   getById,
   // add,
   // update,
+  remove,
   // addToyMsg,
   // removeToyMsg,
 }
@@ -22,7 +21,7 @@ module.exports = {
 //? Query - List/Filtering/Sorting/Paging
 async function query(query) {
   try {
-    // Criteria not working
+    //! Criteria not working
     const { name, maxPrice, inStock, labels } = query
     console.log('Name:', name)
     const criteria = {
@@ -120,46 +119,23 @@ async function getById(toyId) {
   try {
     const collection = await dbService.getCollection(TOYS_DB)
     const toy = collection.findOne({ _id: ObjectId(toyId) })
+    // TODO: Return error if toyId is not found
     return toy
   } catch (err) {
-    logger.error(`while finding toy ${toyId}:`, err)
+    logger.error(`While finding toy ${toyId}:`, err)
     throw err
   }
 }
 
 //? Remove - Delete
-function remove(toyId) {
-  const idx = toys.findIndex((toy) => toy._id === toyId)
-  if (idx === -1) return Promise.reject('No Such Toy!')
-  toys.splice(idx, 1)
-  _writeToysToFile()
-  return Promise.resolve()
-}
-
-//? Private Functions
-function _writeToysToFile() {
-  return new Promise((res, rej) => {
-    const data = JSON.stringify(toys, null, 2)
-    fs.writeFile('data/toysDB.json', data, (err) => {
-      if (err) return rej(err)
-      console.log('File written successfully\n')
-      res()
-    })
-  })
-}
-
-function _makeId(length = 5) {
-  let text = ''
-  const possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
+async function remove(toyId) {
+  try {
+    const collection = await dbService.getCollection(TOYS_DB)
+    await collection.deleteOne({ _id: ObjectId(toyId) })
+    // TODO: Return error if toyId is not found
+    return toyId
+  } catch (err) {
+    logger.error(`Cannot remove toy ${toyId}`, err)
+    throw err
   }
-  return text
-}
-
-function _getRandomIntInclusive(min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
 }

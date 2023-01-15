@@ -1,4 +1,4 @@
-// Services
+//? Services
 const toyService = require('./toy.service')
 const logger = require('../../services/logger.service')
 
@@ -7,7 +7,7 @@ module.exports = {
   getToyById,
   //   addToy,
   //   updateToy,
-  //   removeToy,
+  removeToy,
   //   addToyMsg,
   //   removeToyMsg,
 }
@@ -20,7 +20,7 @@ async function getToys(req, res) {
     const toys = await toyService.query(query)
     res.json(toys)
   } catch (err) {
-    logger.error('Had issues getting toys:', err)
+    logger.error('Had issues getting toys', err)
     res.status(500).send({ err: 'Had issues getting toys' })
   }
 }
@@ -61,12 +61,22 @@ async function getToyById(req, res) {
     const toy = await toyService.getById(toyId)
     res.json(toy)
   } catch (err) {
-    logger.error('Had issues getting toy:', err)
+    logger.error('Had issues getting toy', err)
     res.status(500).send({ err: 'Had issues getting toy' })
   }
 }
 
 //? Remove - Delete
+async function removeToy(req, res) {
+  try {
+    const toyId = req.params.id
+    const removedId = await toyService.remove(toyId)
+    res.send(removedId)
+  } catch (err) {
+    logger.error('Failed to remove toy', err)
+    res.status(500).send({ err: 'Failed to remove toy' })
+  }
+}
 // app.delete('/api/toy/:toyId', (req, res) => {
 //   const { toyId } = req.params
 //   toyService

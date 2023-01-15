@@ -1,29 +1,29 @@
-// Libraries
+//? Libraries
 const express = require('express')
-// Middleware
+//? Middleware
 const { log } = require('../../middlewares/logger.middleware')
 const {
   requireAuth,
   requireAdmin,
 } = require('../../middlewares/requireAuth.middleware')
-// Controller
+//? Controller
 const {
   getToys,
   getToyById,
   //   addToy,
   //   updateToy,
-  //   removeToy,
+  removeToy,
   //   addToyMsg,
   //   removeToyMsg,
 } = require('./toy.controller')
-// Config
+//? Config
 const router = express.Router()
 
 router.get('/', log, getToys)
-router.get('/:id', getToyById)
+router.get('/:id', log, getToyById)
 // router.post('/', requireAuth, addToy)
 // router.put('/:id', requireAuth, updateToy)
-// router.delete('/:id', requireAuth, removeToy)
+router.delete('/:id', requireAuth, removeToy)
 
 // router.post('/:id/msg', requireAuth, addToyMsg)
 // router.delete('/:id/msg/:msgId', requireAuth, removeToyMsg)
