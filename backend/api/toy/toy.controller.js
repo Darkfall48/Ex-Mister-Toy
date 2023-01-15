@@ -6,7 +6,7 @@ module.exports = {
   getToys,
   getToyById,
   addToy,
-  //   updateToy,
+  updateToy,
   removeToy,
   //   addToyMsg,
   //   removeToyMsg,
@@ -20,8 +20,8 @@ async function getToys(req, res) {
     const toys = await toyService.query(query)
     res.json(toys)
   } catch (err) {
-    logger.error('Had issues getting toys', err)
-    res.status(500).send({ err: 'Had issues getting toys' })
+    logger.error('Had issues while getting toys', err)
+    res.status(500).send({ err: 'Had issues while getting toys' })
   }
 }
 
@@ -31,6 +31,7 @@ async function addToy(req, res) {
   try {
     const toy = req.body
     // toy.owner = loggedinUser
+    logger.debug('Adding Toy')
     const addedToy = await toyService.add(toy)
     res.json(addedToy)
   } catch (err) {
@@ -40,18 +41,17 @@ async function addToy(req, res) {
 }
 
 //? Update - Edit
-// app.put('/api/toy', (req, res) => {
-//   const toy = req.body
-//   toyService
-//     .save(toy)
-//     .then((savedToy) => {
-//       res.send(savedToy)
-//     })
-//     .catch((err) => {
-//       console.log('Had issues updating toy:', err)
-//       res.status(404).send({ msg: 'Had issues updating toy' })
-//     })
-// })
+async function updateToy(req, res) {
+  try {
+    const toy = req.body
+    logger.debug('Updating Toy', toy.id)
+    const updatedToy = await toyService.update(toy)
+    res.json(updatedToy)
+  } catch (err) {
+    logger.error('Had issues while updating car', err)
+    res.status(500).send({ err: 'Had issues while updating car' })
+  }
+}
 
 //? Get - Read
 async function getToyById(req, res) {
@@ -61,8 +61,8 @@ async function getToyById(req, res) {
     const toy = await toyService.getById(toyId)
     res.json(toy)
   } catch (err) {
-    logger.error('Had issues getting toy', err)
-    res.status(500).send({ err: 'Had issues getting toy' })
+    logger.error('Had issues while getting toy', err)
+    res.status(500).send({ err: 'Had issues while getting toy' })
   }
 }
 
@@ -70,6 +70,7 @@ async function getToyById(req, res) {
 async function removeToy(req, res) {
   try {
     const toyId = req.params.id
+    logger.debug('Removing Toy', toyId)
     const removedId = await toyService.remove(toyId)
     res.send(removedId)
   } catch (err) {
@@ -77,15 +78,3 @@ async function removeToy(req, res) {
     res.status(500).send({ err: 'Failed to remove toy' })
   }
 }
-// app.delete('/api/toy/:toyId', (req, res) => {
-//   const { toyId } = req.params
-//   toyService
-//     .remove(toyId)
-//     .then(() => {
-//       res.end('Done!')
-//     })
-//     .catch((err) => {
-//       console.log('Had issues deleting toy:', err)
-//       res.status(404).send({ msg: 'Had issues deleting toy' })
-//     })
-// })

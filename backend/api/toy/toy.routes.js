@@ -11,7 +11,7 @@ const {
   getToys,
   getToyById,
   addToy,
-  //   updateToy,
+  updateToy,
   removeToy,
   //   addToyMsg,
   //   removeToyMsg,
@@ -21,8 +21,8 @@ const router = express.Router()
 
 router.get('/', log, getToys)
 router.get('/:id', log, getToyById)
-router.post('/', requireAuth, addToy)
-// router.put('/:id', requireAuth, updateToy)
+router.post('/', log, requireAuth, addToy)
+router.put('/:id', log, requireAuth, updateToy)
 router.delete('/:id', requireAuth, removeToy)
 
 // router.post('/:id/msg', requireAuth, addToyMsg)

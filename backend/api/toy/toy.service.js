@@ -12,7 +12,7 @@ module.exports = {
   query,
   getById,
   add,
-  // update,
+  update,
   remove,
   // addToyMsg,
   // removeToyMsg,
@@ -103,29 +103,48 @@ async function add(toy) {
     throw err
   }
 }
-function save(toy) {
-  if (toy._id) {
-    const idx = toys.findIndex((currToy) => currToy._id === toy._id)
-    console.log('Idx:', idx)
-    if (idx === -1) return Promise.reject('No such Toy!')
-    toys[idx] = { ...toys[idx], ...toy }
-  } else {
-    // In case we want to make a random toy
-    if (toy.name === undefined)
-      toy.name = 'Random ' + _getRandomIntInclusive(4000, 8000)
-    if (toy.price === undefined) toy.price = _getRandomIntInclusive(1, 500)
-    if (toy.inStock === undefined)
-      toy.inStock = _getRandomIntInclusive(1, 4) >= 2 ? true : false
-
-    toy.createdAt = Date.now()
-    toy._id = _makeId()
-
-    toys.unshift(toy)
-  }
-  return _writeToysToFile().then(() => toy)
-}
 
 //? Update - Edit
+async function update(toy) {
+  try {
+    const { name, price, labels, createdAt, inStock } = toy
+    const toyToSave = {
+      name,
+      price,
+      labels,
+      createdAt,
+      inStock,
+    }
+    const collection = await dbService.getCollection(TOYS_DB)
+    await collection.updateOne({ _id: ObjectId(toy._id) }, { $set: toyToSave })
+    return toy
+  } catch (err) {
+    logger.error(`Cannot update toy ${toyId}`, err)
+    throw err
+  }
+}
+
+// function save(toy) {
+//   if (toy._id) {
+//     const idx = toys.findIndex((currToy) => currToy._id === toy._id)
+//     console.log('Idx:', idx)
+//     if (idx === -1) return Promise.reject('No such Toy!')
+//     toys[idx] = { ...toys[idx], ...toy }
+//   } else {
+//     // In case we want to make a random toy
+//     if (toy.name === undefined)
+//       toy.name = 'Random ' + _getRandomIntInclusive(4000, 8000)
+//     if (toy.price === undefined) toy.price = _getRandomIntInclusive(1, 500)
+//     if (toy.inStock === undefined)
+//       toy.inStock = _getRandomIntInclusive(1, 4) >= 2 ? true : false
+
+//     toy.createdAt = Date.now()
+//     toy._id = _makeId()
+
+//     toys.unshift(toy)
+//   }
+//   return _writeToysToFile().then(() => toy)
+// }
 
 //? Get - Read
 async function getById(toyId) {
