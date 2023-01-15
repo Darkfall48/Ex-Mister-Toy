@@ -6,13 +6,8 @@ import {
   REMOVE_TOY,
   UNDO_REMOVE_TOY,
   SET_TOYS,
-  SET_FILTER,
   SET_IS_LOADING,
 } from '../reducers/toy.reducer'
-
-export function setFilter(filterBy) {
-  store.dispatch({ type: SET_FILTER, filterBy })
-}
 
 export function loadToys(filterBy) {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })

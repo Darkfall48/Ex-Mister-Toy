@@ -21,7 +21,6 @@ export const CLEAR_CART = 'CLEAR_CART'
 const initialState = {
   toys: [],
   lastRemovedToy: null,
-  filterBy: toyService.getDefaultFilter(),
   isLoading: false,
   isCartShown: false,
   shoppingCart: [],
@@ -34,8 +33,6 @@ export function toyReducer(state = initialState, action) {
 
   switch (action.type) {
     //* Toys
-    case SET_FILTER:
-      return { ...state, filterBy: action.filterBy }
     case SET_TOYS:
       return { ...state, toys: action.toys }
     case SET_IS_LOADING:

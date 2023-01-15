@@ -21,11 +21,11 @@ module.exports = {
 //? Query - List/Filtering/Sorting/Paging
 async function query(query) {
   try {
-    //! Criteria not working
     // TODO: FILTERING/SORTING/PAGING
     const { name, maxPrice, inStock, labels, sortBy, sortValue } = query
     const sortCriteria = { [sortBy ? sortBy : createdAt]: sortValue ? 1 : -1 }
     const filterCriteria = {
+      //! KNOWN ISSUE: Name field must have something in front end
       name: { $regex: name, $options: 'i' },
       price: { $lt: maxPrice ? +maxPrice : Infinity },
     }

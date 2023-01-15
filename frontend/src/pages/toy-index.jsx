@@ -14,9 +14,7 @@ import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
 import { ADD_TO_CART } from '../store/reducers/toy.reducer'
 
 export function ToyIndex() {
-  const { toys, filterBy, isLoading, shoppingCart } = useSelector(
-    (storeState) => storeState.toyModule
-  )
+  const { toys, isLoading } = useSelector((storeState) => storeState.toyModule)
   const [searchParams, setSearchParams] = useSearchParams()
   const queryFilterBy = toyService.getFromSearchParams(searchParams)
   console.log('Search Params', queryFilterBy)
@@ -95,7 +93,7 @@ export function ToyIndex() {
   }
 
   function addToCart(toy) {
-    console.log(`Adding ${toy.vendor} to Cart`)
+    console.log(`Adding ${toy.name} to Cart`)
     dispatch({ type: ADD_TO_CART, toy })
     showSuccessMsg('Added to Cart')
   }
