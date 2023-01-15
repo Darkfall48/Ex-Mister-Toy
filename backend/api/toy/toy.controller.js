@@ -15,9 +15,10 @@ module.exports = {
 //? Query - List/Filtering/Sorting/Paging
 async function getToys(req, res) {
   try {
-    logger.debug('Getting Toys')
     const { query } = req
+    logger.debug('Getting Toys..')
     const toys = await toyService.query(query)
+    logger.debug('Toys got successfully!')
     res.json(toys)
   } catch (err) {
     logger.error('Had issues while getting toys', err)
@@ -31,8 +32,9 @@ async function addToy(req, res) {
   try {
     const toy = req.body
     // toy.owner = loggedinUser
-    logger.debug('Adding Toy')
+    logger.debug('Adding Toy..')
     const addedToy = await toyService.add(toy)
+    logger.debug('Toy added successfully!')
     res.json(addedToy)
   } catch (err) {
     logger.error('Had issues while adding car', err)
@@ -44,8 +46,10 @@ async function addToy(req, res) {
 async function updateToy(req, res) {
   try {
     const toy = req.body
-    logger.debug('Updating Toy', toy.id)
+    const { _id: toyId } = toy
+    logger.debug('Updating Toy..', toyId)
     const updatedToy = await toyService.update(toy)
+    logger.debug('Toy updated successfully!', toyId)
     res.json(updatedToy)
   } catch (err) {
     logger.error('Had issues while updating car', err)
@@ -57,8 +61,9 @@ async function updateToy(req, res) {
 async function getToyById(req, res) {
   try {
     const toyId = req.params.id
-    logger.debug('Getting Toy', toyId)
+    logger.debug('Getting Toy..', toyId)
     const toy = await toyService.getById(toyId)
+    logger.debug('Toy got successfully!', toyId)
     res.json(toy)
   } catch (err) {
     logger.error('Had issues while getting toy', err)
@@ -70,8 +75,9 @@ async function getToyById(req, res) {
 async function removeToy(req, res) {
   try {
     const toyId = req.params.id
-    logger.debug('Removing Toy', toyId)
+    logger.debug('Removing Toy..', toyId)
     const removedId = await toyService.remove(toyId)
+    logger.debug('Toy removed successfully!', toyId)
     res.send(removedId)
   } catch (err) {
     logger.error('Failed to remove toy', err)

@@ -23,7 +23,7 @@ router.get('/', log, getToys)
 router.get('/:id', log, getToyById)
 router.post('/', log, requireAuth, addToy)
 router.put('/:id', log, requireAuth, updateToy)
-router.delete('/:id', requireAuth, removeToy)
+router.delete('/:id', log, requireAuth, removeToy)
 
 // router.post('/:id/msg', requireAuth, addToyMsg)
 // router.delete('/:id/msg/:msgId', requireAuth, removeToyMsg)
