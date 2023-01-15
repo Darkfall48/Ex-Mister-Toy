@@ -11,7 +11,7 @@ const TOYS_DB = 'toys_col'
 module.exports = {
   query,
   getById,
-  // add,
+  add,
   // update,
   remove,
   // addToyMsg,
@@ -22,6 +22,7 @@ module.exports = {
 async function query(query) {
   try {
     //! Criteria not working
+    // TODO: FILTERING/SORTING/PAGING
     const { name, maxPrice, inStock, labels } = query
     console.log('Name:', name)
     const criteria = {
@@ -91,7 +92,17 @@ async function query(query) {
 //   })
 // }
 
-//? Save - Save/Edit
+//? Create - Save
+async function add(toy) {
+  try {
+    const collection = await dbService.getCollection(TOYS_DB)
+    await collection.insertOne(toy)
+    return toy
+  } catch (err) {
+    logger.error('Cannot insert toy', err)
+    throw err
+  }
+}
 function save(toy) {
   if (toy._id) {
     const idx = toys.findIndex((currToy) => currToy._id === toy._id)
@@ -113,6 +124,8 @@ function save(toy) {
   }
   return _writeToysToFile().then(() => toy)
 }
+
+//? Update - Edit
 
 //? Get - Read
 async function getById(toyId) {

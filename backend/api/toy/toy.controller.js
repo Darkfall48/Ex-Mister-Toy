@@ -5,7 +5,7 @@ const logger = require('../../services/logger.service')
 module.exports = {
   getToys,
   getToyById,
-  //   addToy,
+  addToy,
   //   updateToy,
   removeToy,
   //   addToyMsg,
@@ -26,18 +26,18 @@ async function getToys(req, res) {
 }
 
 //? Create - Save
-// app.post('/api/toy', (req, res) => {
-//   const toy = req.body
-//   toyService
-//     .save(toy)
-//     .then((savedToy) => {
-//       res.send(savedToy)
-//     })
-//     .catch((err) => {
-//       console.log('Had issues adding toy:', err)
-//       res.status(404).send({ msg: 'Had issues adding toy' })
-//     })
-// })
+async function addToy(req, res) {
+  //   const { loggedinUser } = req
+  try {
+    const toy = req.body
+    // toy.owner = loggedinUser
+    const addedToy = await toyService.add(toy)
+    res.json(addedToy)
+  } catch (err) {
+    logger.error('Had issues while adding car', err)
+    res.status(500).send({ err: 'Had issues while adding car' })
+  }
+}
 
 //? Update - Edit
 // app.put('/api/toy', (req, res) => {
