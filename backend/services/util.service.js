@@ -9,5 +9,5 @@ function makeId(length = 5) {
 }
 
 module.exports = {
-  makeId
+  makeId,
 }

@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
 
 //* Real routing express
 //? If index.html is not found, create a simple html page.
-// app.get('/', (req, res) => res.send('You are not supposed to see me:('))
+app.get('/', (req, res) => res.send('You are not supposed to see me:('))
 
 //* routes
 app.use('/api/auth', authRoutes)

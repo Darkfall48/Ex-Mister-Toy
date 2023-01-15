@@ -4,39 +4,34 @@
     "price": 24.99,
     "labels": ["On wheels", "Box game", "Battery Powered"],
     "createdAt": 1673405373036,
-    "inStock": true,
-    "_id": "jiZyNl1"
+    "inStock": true
   },
   {
     "name": "Fuzzy Wuzzy",
     "price": 108,
     "labels": ["Baby", "Puzzle", "Battery Powered"],
     "createdAt": 1673405374036,
-    "inStock": false,
-    "_id": "jiZyNl2"
+    "inStock": false
   },
   {
     "name": "Squishy McFluffernutter",
     "price": 20,
     "labels": ["Art", "Puzzle", "Battery Powered"],
     "createdAt": 1673405375036,
-    "inStock": true,
-    "_id": "jiZyNl3"
+    "inStock": true
   },
   {
     "name": "Professor Fluffington",
     "price": 12.5,
     "labels": ["On wheels", "Baby", "Outdoor"],
     "createdAt": 1673405376036,
-    "inStock": false,
-    "_id": "jiZyNl4"
+    "inStock": false
   },
   {
     "name": "Buddy McFluffernutter",
     "price": 65,
     "labels": ["Doll", "Box game", "Battery Powered"],
     "createdAt": 1673405377036,
-    "inStock": true,
-    "_id": "jiZyNl5"
+    "inStock": true
   }
 ]

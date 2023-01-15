@@ -7,11 +7,12 @@ const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
 // Global Variables
 const PAGE_SIZE = 10
+const TOYS_DB = 'toys_col'
 
 module.exports = {
   query,
   // remove,
-  // getById,
+  getById,
   // add,
   // update,
   // addToyMsg,
@@ -27,7 +28,7 @@ async function query(query) {
     const criteria = {
       name: { $regex: name, $option: 'i' },
     }
-    const collection = await dbService.getCollection('toys_col')
+    const collection = await dbService.getCollection(TOYS_DB)
     let toys = await collection.find().toArray()
     return toys
   } catch (err) {
@@ -115,10 +116,15 @@ function save(toy) {
 }
 
 //? Get - Read
-function get(toyId) {
-  const toy = toys.find((toy) => toy._id === toyId)
-  if (!toy) return Promise.reject('Toy not found')
-  return Promise.resolve(toy)
+async function getById(toyId) {
+  try {
+    const collection = await dbService.getCollection(TOYS_DB)
+    const toy = collection.findOne({ _id: ObjectId(toyId) })
+    return toy
+  } catch (err) {
+    logger.error(`while finding toy ${toyId}:`, err)
+    throw err
+  }
 }
 
 //? Remove - Delete

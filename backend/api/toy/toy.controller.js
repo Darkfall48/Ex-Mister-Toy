@@ -4,7 +4,7 @@ const logger = require('../../services/logger.service')
 
 module.exports = {
   getToys,
-  //   getToyById,
+  getToyById,
   //   addToy,
   //   updateToy,
   //   removeToy,
@@ -54,18 +54,17 @@ async function getToys(req, res) {
 // })
 
 //? Get - Read
-// app.get('/api/toy/:toyId', (req, res) => {
-//   const { toyId } = req.params
-//   toyService
-//     .get(toyId)
-//     .then((toy) => {
-//       res.send(toy)
-//     })
-//     .catch((err) => {
-//       console.log('Had issues getting toy:', err)
-//       res.status(404).send({ msg: 'Had issues getting toy' })
-//     })
-// })
+async function getToyById(req, res) {
+  try {
+    const toyId = req.params.id
+    logger.debug('Getting Toy', toyId)
+    const toy = await toyService.getById(toyId)
+    res.json(toy)
+  } catch (err) {
+    logger.error('Had issues getting toy:', err)
+    res.status(500).send({ err: 'Had issues getting toy' })
+  }
+}
 
 //? Remove - Delete
 // app.delete('/api/toy/:toyId', (req, res) => {
