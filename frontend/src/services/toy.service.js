@@ -36,7 +36,7 @@ function query({
 
   const queryParams = '?' + filterParams + '&' + sortParams + '&' + pageParams
 
-  return httpService.get(BASE_URL + queryParams).then((res) => res.toys)
+  return httpService.get(BASE_URL + queryParams).then((res) => res)
 }
 
 function get(toyId) {
@@ -52,7 +52,8 @@ function remove(toyId) {
 }
 
 function save(toy) {
-  if (toy._id) return httpService.put(BASE_URL, toy)
+  const { _id: toyId } = toy
+  if (toyId) return httpService.put(BASE_URL + toyId, toy)
   return httpService.post(BASE_URL, toy)
 }
 
