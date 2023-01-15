@@ -23,13 +23,17 @@ async function query(query) {
   try {
     //! Criteria not working
     // TODO: FILTERING/SORTING/PAGING
-    const { name, maxPrice, inStock, labels } = query
-    console.log('Name:', name)
-    const criteria = {
-      name: { $regex: name, $option: 'i' },
+    const { name, maxPrice, inStock, labels, sortBy, sortValue } = query
+    const sortCriteria = { [sortBy ? sortBy : createdAt]: sortValue ? 1 : -1 }
+    const filterCriteria = {
+      name: { $regex: name, $options: 'i' },
+      price: { $lt: maxPrice ? +maxPrice : Infinity },
     }
     const collection = await dbService.getCollection(TOYS_DB)
-    let toys = await collection.find().toArray()
+    let toys = await collection
+      .find(filterCriteria)
+      .sort(sortCriteria)
+      .toArray()
     return toys
   } catch (err) {
     logger.error('Cannot find toys', err)
