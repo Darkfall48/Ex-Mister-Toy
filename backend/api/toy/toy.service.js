@@ -21,24 +21,47 @@ module.exports = {
 //? Query - List/Filtering/Sorting/Paging
 async function query(query) {
   try {
-    // TODO: FILTERING/SORTING/PAGING
-    const { name, maxPrice, inStock, labels, sortBy, sortValue } = query
-    const sortCriteria = { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
-    const filterCriteria = {
-      //! KNOWN ISSUE: Name field must have something in front end
-      name: { $regex: name ? name : '', $options: 'i' },
-      price: { $lt: maxPrice ? +maxPrice : Infinity },
-    }
+    //? DONE: FILTERING/SORTING/PAGING
+    const sortCriteria = _buildSortCriteria(query)
+    const filterCriteria = _buildFilterCriteria(query)
     const collection = await dbService.getCollection(TOYS_DB)
     let toys = await collection
       .find(filterCriteria)
       .sort(sortCriteria)
       .toArray()
-    return toys
+
+    return _setPage(query, toys)
   } catch (err) {
     logger.error('Cannot find toys', err)
     throw err
   }
+}
+
+function _setPage(filterBy, toys) {
+  const { pageSize, pageIdx } = filterBy
+
+  if (!pageSize) return toys
+  // const currPage = +pageIdx
+  // const toysLength = length
+  // const totalPages = Math.ceil(toysLength / +pageSize)
+  let startIdx = null
+  if (pageIdx !== undefined) startIdx = pageIdx * +pageSize
+  return toys.slice(startIdx, +pageSize + startIdx)
+}
+
+function _buildSortCriteria(filterBy) {
+  const { sortBy, sortValue } = filterBy
+  return { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
+}
+
+function _buildFilterCriteria(filterBy) {
+  const { name, maxPrice, inStock, labels } = filterBy
+  let criteria = {}
+  if (name) criteria.name = { $regex: name ? name : '', $options: 'i' }
+  if (maxPrice) criteria.price = { $lt: maxPrice ? +maxPrice : Infinity }
+  if (inStock) criteria.inStock = true // TODO: Make it work with false
+  if (labels?.length) criteria.labels = { $all: labels.split(',') }
+  return criteria
 }
 
 // function query(querry) {
@@ -77,15 +100,15 @@ async function query(query) {
 //   })
 
 //   //* Paging
-//   let { pageSize, pageIdx } = querry
-//   if (!pageSize) pageSize = PAGE_SIZE
-//   const currPage = +pageIdx
-//   const toysLength = filteredToys.length
-//   const totalPages = Math.ceil(toysLength / +pageSize)
-//   if (pageIdx !== undefined) {
-//     const startIdx = pageIdx * +pageSize
-//     filteredToys = filteredToys.slice(startIdx, +pageSize + startIdx)
-//   }
+// let { pageSize, pageIdx } = querry
+// if (!pageSize) pageSize = PAGE_SIZE
+// const currPage = +pageIdx
+// const toysLength = filteredToys.length
+// const totalPages = Math.ceil(toysLength / +pageSize)
+// if (pageIdx !== undefined) {
+//   const startIdx = pageIdx * +pageSize
+//   filteredToys = filteredToys.slice(startIdx, +pageSize + startIdx)
+// }
 
 //   return Promise.resolve({
 //     totalToysNumber: toysLength,
