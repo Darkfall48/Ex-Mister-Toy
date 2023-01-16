@@ -19,9 +19,9 @@ export function ToyFilter({ onSetFilter, filterBy }) {
     filterBy.page
   )
 
-  console.log('Filter to Edit', filterByToEdit)
-  console.log('Sort to Edit', sortByToEdit)
-  console.log('Page to Edit', pageByToEdit)
+  // console.log('Filter to Edit', filterByToEdit)
+  // console.log('Sort to Edit', sortByToEdit)
+  // console.log('Page to Edit', pageByToEdit)
 
   useEffect(() => {
     onSetFilter({

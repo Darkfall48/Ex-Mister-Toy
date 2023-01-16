@@ -17,7 +17,7 @@ export function ToyIndex() {
   const { toys, isLoading } = useSelector((storeState) => storeState.toyModule)
   const [searchParams, setSearchParams] = useSearchParams()
   const queryFilterBy = toyService.getFromSearchParams(searchParams)
-  console.log('Search Params', queryFilterBy)
+  // console.log('Search Params', queryFilterBy)
 
   const dispatch = useDispatch()
 
@@ -45,7 +45,7 @@ export function ToyIndex() {
 
       if (page) queryString += '&' + buildQueryString(page)
 
-      console.log('Querry String after filtered:', queryString)
+      // console.log('Querry String after filtered:', queryString)
       setSearchParams(queryString)
     }
   }

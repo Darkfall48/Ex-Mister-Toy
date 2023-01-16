@@ -22,9 +22,9 @@ async function query({
   sort = getDefaultSort(),
   page = getDefaultPage(),
 } = {}) {
-  console.log('Filter:', filter)
-  console.log('Sort:', sort)
-  console.log('Page', page)
+  // console.log('Filter:', filter)
+  // console.log('Sort:', sort)
+  // console.log('Page', page)
   // Getting the values
   const { name, maxPrice, inStock, labels } = filter
   const { sortBy, sortValue } = sort

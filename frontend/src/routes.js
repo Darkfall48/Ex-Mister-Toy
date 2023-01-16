@@ -2,6 +2,7 @@
 import { AboutUs } from './pages/about-page'
 import { Dashboard } from './pages/dashboard-page'
 import { HomePage } from './pages/home-page'
+import { UserDetails } from './pages/user-details'
 import { ToyDetails } from './pages/toy-details'
 import { ToyEdit } from './pages/toy-edit'
 import { ToyIndex } from './pages/toy-index'
@@ -34,6 +35,10 @@ export default [
   {
     path: '/toy/edit/:toyId',
     component: ToyEdit,
+  },
+  {
+    path: '/user/:userId',
+    component: UserDetails,
   },
   //   {
   //     path: '/login',

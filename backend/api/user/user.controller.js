@@ -19,7 +19,7 @@ async function getUsers(req, res) {
     logger.debug('Getting Users..')
     const users = await userService.query(filterBy)
     logger.debug('Users got successfully!')
-    res.send(users)
+    res.json(users)
   } catch (err) {
     logger.error('Failed to get users', err)
     res.status(500).send({ err: 'Failed to get users' })
@@ -33,7 +33,7 @@ async function updateUser(req, res) {
     logger.debug('Updating User..', user._id)
     const savedUser = await userService.update(user)
     logger.debug('User updated successfully!', user._id)
-    res.send(savedUser)
+    res.json(savedUser)
   } catch (err) {
     logger.error('Failed to update user', err)
     res.status(500).send({ err: 'Failed to update user' })
@@ -47,7 +47,7 @@ async function getUser(req, res) {
     logger.debug('Getting User..', userId)
     const user = await userService.getById(userId)
     logger.debug('User got successfully!', userId)
-    res.send(user)
+    res.json(user)
   } catch (err) {
     logger.error('Failed to get user', err)
     res.status(500).send({ err: 'Failed to get user' })

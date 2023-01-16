@@ -1,57 +1,48 @@
-import { store } from '../store/store.js'
+import { store } from '../store'
 import { userService } from '../../services/user.service.js'
+import { SET_USER } from '../reducers/user.reducer.js'
 
-import { SET_USER, UPDATE_USER_SCORE } from '../reducers/user.reducer.js'
-import { CLEAR_CART } from '../reducers/toy.reducer.js'
-
-export function login(credentials) {
-  return userService
-    .login(credentials)
-    .then((user) => {
-      store.dispatch({ type: SET_USER, user })
-      return user
-    })
-    .catch((err) => {
-      console.error('Cannot login:', err)
-      throw err
-    })
+export async function login(credentials) {
+  try {
+    const user = await userService.login(credentials)
+    console.log('User:', user)
+    store.dispatch({ type: SET_USER, user })
+    return user
+  } catch (err) {
+    console.error('Cannot login:', err)
+    throw err
+  }
 }
 
-export function signup(credentials) {
-  return userService
-    .signup(credentials)
-    .then((user) => {
-      store.dispatch({ type: SET_USER, user })
-      return user
-    })
-    .catch((err) => {
-      console.error('Cannot signup:', err)
-      throw err
-    })
+export async function signup(credentials) {
+  try {
+    const user = await userService.signup(credentials)
+    store.dispatch({ type: SET_USER, user })
+    return user
+  } catch (err) {
+    console.error('Cannot signup:', err)
+    throw err
+  }
 }
 
-export function logout() {
-  return userService
-    .logout()
-    .then(() => {
-      store.dispatch({ type: SET_USER, user: null })
-    })
-    .catch((err) => {
-      console.error('Cannot logout:', err)
-      throw err
-    })
+export async function logout() {
+  try {
+    await userService.logout()
+    store.dispatch({ type: SET_USER, user: null })
+  } catch (err) {
+    console.error('Cannot logout:', err)
+    throw err
+  }
 }
 
-export function checkout(amount) {
-  return userService
-    .updateScore(amount)
-    .then((newScore) => {
-      store.dispatch({ type: UPDATE_USER_SCORE, score: newScore })
-      store.dispatch({ type: CLEAR_CART })
-      return newScore
-    })
-    .catch((err) => {
-      console.error('Cannot checkout:', err)
-      throw err
-    })
+export async function updateUser(userDetails) {
+  try {
+    const updatedUser = await userService.update(userDetails)
+    console.log('New User:', updatedUser)
+    store.dispatch({ type: SET_USER, user: updatedUser })
+    return updatedUser
+  } catch (err) {
+    console.error('Cannot checkout:', err)
+    throw err
+  }
 }
