@@ -25,14 +25,15 @@ export function ToyIndex() {
     onLoadToys(queryFilterBy)
   }, [searchParams])
 
-  function onLoadToys(params) {
-    loadToys(params)
-      .then(() => {
-        showSuccessMsg('Toys loaded')
-      })
-      .catch((err) => {
-        showErrorMsg('Cannot load toys')
-      })
+  async function onLoadToys(params) {
+    try {
+      const loadedToys = await loadToys(params)
+      console.log('LOADDDEEEDDDD', loadedToys)
+      showSuccessMsg('Toys loaded')
+    } catch (err) {
+      showErrorMsg('Cannot load toys')
+      console.log(err)
+    }
   }
 
   function onSetFilter(params) {
@@ -66,30 +67,30 @@ export function ToyIndex() {
       })
       .catch((err) => {
         showErrorMsg('Cannot add toy')
+        console.log(err)
       })
   }
 
-  function onEditToy(toy) {
+  async function onEditToy(toy) {
     const price = +prompt('New price?')
     const toyToSave = { ...toy, price }
-
-    saveToy(toyToSave)
-      .then((savedToy) => {
-        showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
-      })
-      .catch((err) => {
-        showErrorMsg('Cannot update toy')
-      })
+    try {
+      const savedToy = await saveToy(toyToSave)
+      showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
+    } catch (err) {
+      showErrorMsg('Cannot update toy')
+      console.log(err)
+    }
   }
 
-  function onRemoveToy(toyId) {
-    removeToy(toyId)
-      .then(() => {
-        showSuccessMsg('Toy removed')
-      })
-      .catch((err) => {
-        showErrorMsg('Cannot remove Toy')
-      })
+  async function onRemoveToy(toyId) {
+    try {
+      await removeToy(toyId)
+      showSuccessMsg('Toy removed')
+    } catch (err) {
+      showErrorMsg('Cannot remove Toy')
+      console.log(err)
+    }
   }
 
   function addToCart(toy) {

@@ -17,7 +17,7 @@ export const toyService = {
   getLabels,
 }
 
-function query({
+async function query({
   filter = getDefaultFilter(),
   sort = getDefaultSort(),
   page = getDefaultPage(),
@@ -36,26 +36,45 @@ function query({
   const pageParams = `pageSize=${pageSize}&pageIdx=${pageIdx}`
 
   const queryParams = '?' + filterParams + '&' + sortParams + '&' + pageParams
-
-  return httpService.get(BASE_URL + queryParams).then((res) => res)
+  try {
+    return await httpService.get(BASE_URL + queryParams).then((res) => res)
+  } catch (err) {
+    throw err
+  }
 }
 
-function get(toyId) {
-  return httpService.get(BASE_URL + toyId)
+async function get(toyId) {
+  try {
+    return await httpService.get(BASE_URL + toyId)
+  } catch (err) {
+    throw err
+  }
 }
 
-function getRandomToy() {
-  return httpService.post(BASE_URL)
+async function getRandomToy() {
+  try {
+    return await httpService.post(BASE_URL)
+  } catch (err) {
+    throw err
+  }
 }
 
-function remove(toyId) {
-  return httpService.delete(BASE_URL + toyId)
+async function remove(toyId) {
+  try {
+    return await httpService.delete(BASE_URL + toyId)
+  } catch (err) {
+    throw err
+  }
 }
 
-function save(toy) {
+async function save(toy) {
   const { _id: toyId } = toy
-  if (toyId) return httpService.put(BASE_URL + toyId, toy)
-  return httpService.post(BASE_URL, toy)
+  try {
+    if (toyId) return await httpService.put(BASE_URL + toyId, toy)
+    return await httpService.post(BASE_URL, toy)
+  } catch (err) {
+    throw err
+  }
 }
 
 function getDefaultFilter() {
