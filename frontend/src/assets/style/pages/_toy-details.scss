@@ -1,12 +1,23 @@
 /* Section */
 .toy-details-section {
-}
+  /* In Stock */
+  .instock {
+    &.yes {
+      color: $clr-instock-yes;
+    }
 
-/* In Stock */
-.instock-yes {
-  color: green;
-}
-
-.instock-no {
-  color: red;
+    &.no {
+      color: $clr-instock-no;
+    }
+  }
+  /* Labels */
+  .categories {
+    .label {
+      background-color: $clr-label-bg;
+      color: $clr-label-color;
+      border-radius: 2em;
+      padding: 8px;
+      margin: 5px;
+    }
+  }
 }

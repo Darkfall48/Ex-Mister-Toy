@@ -1,6 +1,7 @@
 export const utilService = {
   makeId,
   makeLorem,
+  getDate,
   getRandomIntInclusive,
   loadFromStorage,
   saveToStorage,
@@ -67,6 +68,32 @@ function getRandomIntInclusive(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
+}
+
+function getDate(timeInStamp) {
+  var time = new Date(+timeInStamp)
+  var months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  var year = time.getFullYear()
+  var month = months[time.getMonth()]
+  var date = time.getDate()
+  //   var hour = a.getHours()
+  //   var min = a.getMinutes()
+  //   var sec = a.getSeconds()
+  var time = date + ' ' + month + ' ' + year
+  return time
 }
 
 function saveToStorage(key, value) {
