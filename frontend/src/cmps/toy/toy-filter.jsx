@@ -2,11 +2,11 @@
 import { useEffect, useRef } from 'react'
 import { Formik, Form, Field } from 'formik'
 // Services
-import { utilService } from '../services/util.service'
+import { utilService } from '../../services/util.service'
 // Custom Hooks
-import { useForm } from '../hooks/useForm'
+import { useForm } from '../../hooks/useForm'
 // Store
-import { store } from '../store/store'
+import { store } from '../../store/store'
 
 export function ToyFilter({ onSetFilter, filterBy }) {
   const [filterByToEdit, setFilterByToEdit, handleFilterChange] = useForm(

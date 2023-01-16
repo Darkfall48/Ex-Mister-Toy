@@ -1,5 +1,6 @@
 // Pages
 import { AboutUs } from './pages/about-us'
+import { Dashboard } from './pages/dashboard-page'
 import { HomePage } from './pages/home-page'
 import { ToyDetails } from './pages/toy-details'
 import { ToyEdit } from './pages/toy-edit'
@@ -13,6 +14,10 @@ export default [
   {
     path: '/about',
     component: AboutUs,
+  },
+  {
+    path: '/dashboard',
+    component: Dashboard,
   },
   {
     path: '/toy',

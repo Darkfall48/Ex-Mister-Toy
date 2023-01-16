@@ -1,5 +1,5 @@
 // Components
-import { AboutMap } from '../cmps/about-map'
+import { AboutMap } from '../cmps/about-us/about-map'
 
 export function AboutUs() {
   return (

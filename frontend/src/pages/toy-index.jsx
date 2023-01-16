@@ -7,8 +7,8 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { toyService } from '../services/toy.service'
 // Components
 import { Loader } from '../cmps/loader'
-import { ToyList } from '../cmps/toy-list'
-import { ToyFilter } from '../cmps/toy-filter'
+import { ToyList } from '../cmps/toy/toy-list'
+import { ToyFilter } from '../cmps/toy/toy-filter'
 // Store
 import { loadToys, removeToy, saveToy } from '../store/actions/toy.action'
 import { ADD_TO_CART } from '../store/reducers/toy.reducer'
