@@ -1,3 +1,6 @@
+// Components
+import { AboutMap } from '../cmps/about-map'
+
 export function AboutUs() {
   return (
     <section>
@@ -8,6 +11,7 @@ export function AboutUs() {
         numquam labore quae. Accusamus libero perferendis ducimus? Alias unde
         hic quisquam doloremque.
       </p>
+      <AboutMap />
     </section>
   )
 }
