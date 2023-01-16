@@ -28,7 +28,6 @@ async function query(query) {
       .find(filterCriteria)
       .sort(sortCriteria)
       .toArray()
-
     return _setPage(query, toys)
   } catch (err) {
     logger.error('Cannot find toys', err)
@@ -96,18 +95,6 @@ async function remove(toyId) {
 }
 
 //? Private Functions - Query - List/Filtering/Sorting/Paging
-function _setPage(filterBy, toys) {
-  const { pageSize, pageIdx } = filterBy
-  if (!pageSize) return toys
-  let startIdx = null
-  if (pageIdx !== undefined) startIdx = pageIdx * +pageSize
-  return toys.slice(startIdx, +pageSize + startIdx)
-}
-
-function _buildSortCriteria(filterBy) {
-  const { sortBy, sortValue } = filterBy
-  return { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
-}
 
 function _buildFilterCriteria(filterBy) {
   const { name, maxPrice, inStock, labels } = filterBy
@@ -117,4 +104,17 @@ function _buildFilterCriteria(filterBy) {
   if (inStock) criteria.inStock = true // TODO: Make it work with false
   if (labels?.length) criteria.labels = { $all: labels.split(',') }
   return criteria
+}
+
+function _buildSortCriteria(filterBy) {
+  const { sortBy, sortValue } = filterBy
+  return { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
+}
+
+function _setPage(filterBy, toys) {
+  const { pageSize, pageIdx } = filterBy
+  if (!pageSize) return toys
+  let startIdx = null
+  if (pageIdx !== undefined) startIdx = pageIdx * +pageSize
+  return toys.slice(startIdx, +pageSize + startIdx)
 }

@@ -28,7 +28,6 @@ export function ToyIndex() {
   async function onLoadToys(params) {
     try {
       const loadedToys = await loadToys(params)
-      console.log('LOADDDEEEDDDD', loadedToys)
       showSuccessMsg('Toys loaded')
     } catch (err) {
       showErrorMsg('Cannot load toys')
