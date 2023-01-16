@@ -14,7 +14,7 @@ import {
 //   try {
 //     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
 //     const filteredToys = await toyService.query(filterBy)
-//     const store = store.dispatch({ type: SET_TOYS, filteredToys })
+//     store.dispatch({ type: SET_TOYS, filteredToys })
 //     return filteredToys
 //   } catch (err) {
 //     console.log('Had issues loading toys', err)
