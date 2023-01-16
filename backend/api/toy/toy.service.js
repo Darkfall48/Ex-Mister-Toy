@@ -1,11 +1,10 @@
 //? Services
 const logger = require('../../services/logger.service')
 const dbService = require('../../services/db.service')
-const utilService = require('../../services/util.service')
 //? Data
 const ObjectId = require('mongodb').ObjectId
 //? Global Variables
-const PAGE_SIZE = 10
+// const PAGE_SIZE = 10
 const TOYS_DB = 'toys_col'
 
 module.exports = {
@@ -36,88 +35,6 @@ async function query(query) {
     throw err
   }
 }
-
-function _setPage(filterBy, toys) {
-  const { pageSize, pageIdx } = filterBy
-
-  if (!pageSize) return toys
-  // const currPage = +pageIdx
-  // const toysLength = length
-  // const totalPages = Math.ceil(toysLength / +pageSize)
-  let startIdx = null
-  if (pageIdx !== undefined) startIdx = pageIdx * +pageSize
-  return toys.slice(startIdx, +pageSize + startIdx)
-}
-
-function _buildSortCriteria(filterBy) {
-  const { sortBy, sortValue } = filterBy
-  return { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
-}
-
-function _buildFilterCriteria(filterBy) {
-  const { name, maxPrice, inStock, labels } = filterBy
-  let criteria = {}
-  if (name) criteria.name = { $regex: name ? name : '', $options: 'i' }
-  if (maxPrice) criteria.price = { $lt: maxPrice ? +maxPrice : Infinity }
-  if (inStock) criteria.inStock = true // TODO: Make it work with false
-  if (labels?.length) criteria.labels = { $all: labels.split(',') }
-  return criteria
-}
-
-// function query(querry) {
-//   if (!querry) return Promise.resolve(toys)
-
-//   //* Filtering
-//   let filteredToys = toys
-//   const { name, maxPrice, inStock, labels } = querry
-//   if (name) {
-//     const regex = new RegExp(name, 'i')
-//     filteredToys = filteredToys.filter((toy) => regex.test(toy.name))
-//   }
-//   if (maxPrice) {
-//     filteredToys = filteredToys.filter((toy) => toy.price <= maxPrice)
-//   }
-//   if (inStock) {
-//     filteredToys = filteredToys.filter(
-//       (toy) => toy.inStock + '' === inStock + ''
-//     )
-//   }
-//   if (labels) {
-//     const labelsArr = labels.split(',')
-//     filteredToys = filteredToys.filter((toy) =>
-//       labelsArr.every((i) => toy.labels.includes(i))
-//     )
-//   }
-
-//   //* Sorting
-//   filteredToys.sort((toy1, toy2) => {
-//     const { sortBy, sortValue } = querry
-//     // console.log('Sort by:', sortBy, 'with', sortValue)
-//     const dir = sortValue ? 1 : -1
-//     if (sortBy === 'name') return toy1.name.localeCompare(toy2.name) * dir
-//     if (sortBy === 'price') return (toy1.price - toy2.price) * dir
-//     if (sortBy === 'createdAt') return (toy1.createdAt - toy2.createdAt) * dir
-//   })
-
-//   //* Paging
-// let { pageSize, pageIdx } = querry
-// if (!pageSize) pageSize = PAGE_SIZE
-// const currPage = +pageIdx
-// const toysLength = filteredToys.length
-// const totalPages = Math.ceil(toysLength / +pageSize)
-// if (pageIdx !== undefined) {
-//   const startIdx = pageIdx * +pageSize
-//   filteredToys = filteredToys.slice(startIdx, +pageSize + startIdx)
-// }
-
-//   return Promise.resolve({
-//     totalToysNumber: toysLength,
-//     totalPages,
-//     currPage,
-//     currToysNumber: filteredToys.length,
-//     toys: filteredToys,
-//   })
-// }
 
 //? Create - Save
 async function add(toy) {
@@ -176,4 +93,28 @@ async function remove(toyId) {
     logger.error(`Cannot remove toy ${toyId}`, err)
     throw err
   }
+}
+
+//? Private Functions - Query - List/Filtering/Sorting/Paging
+function _setPage(filterBy, toys) {
+  const { pageSize, pageIdx } = filterBy
+  if (!pageSize) return toys
+  let startIdx = null
+  if (pageIdx !== undefined) startIdx = pageIdx * +pageSize
+  return toys.slice(startIdx, +pageSize + startIdx)
+}
+
+function _buildSortCriteria(filterBy) {
+  const { sortBy, sortValue } = filterBy
+  return { [sortBy ? sortBy : 'createdAt']: sortValue ? 1 : -1 }
+}
+
+function _buildFilterCriteria(filterBy) {
+  const { name, maxPrice, inStock, labels } = filterBy
+  let criteria = {}
+  if (name) criteria.name = { $regex: name ? name : '', $options: 'i' }
+  if (maxPrice) criteria.price = { $lt: maxPrice ? +maxPrice : Infinity }
+  if (inStock) criteria.inStock = true // TODO: Make it work with false
+  if (labels?.length) criteria.labels = { $all: labels.split(',') }
+  return criteria
 }
