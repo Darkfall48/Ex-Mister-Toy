@@ -1,5 +1,5 @@
 // Pages
-import { AboutUs } from './pages/about-us'
+import { AboutUs } from './pages/about-page'
 import { Dashboard } from './pages/dashboard-page'
 import { HomePage } from './pages/home-page'
 import { ToyDetails } from './pages/toy-details'

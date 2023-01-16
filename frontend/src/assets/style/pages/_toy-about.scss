@@ -1,0 +1,12 @@
+// Section
+.about-section {
+  .map {
+    //* Always set the container height explicitly!
+    height: 50vh;
+    width: 50%;
+    margin: auto;
+    &-marker {
+      font-size: xx-large;
+    }
+  }
+}

@@ -7,6 +7,10 @@ export function HomePage() {
   }, [])
   return (
     <section>
+      <img
+        src={require(`../assets/img/home/logo-toys.png`)}
+        alt="Toys Factory"
+      />
       <h2>Welcome</h2>
     </section>
   )

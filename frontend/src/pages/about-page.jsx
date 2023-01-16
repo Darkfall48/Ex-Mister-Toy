@@ -3,7 +3,7 @@ import { AboutMap } from '../cmps/about-us/about-map'
 
 export function AboutUs() {
   return (
-    <section>
+    <section className="about-section">
       <h2>About Us</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni aperiam

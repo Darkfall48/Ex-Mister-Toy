@@ -18,7 +18,6 @@ ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
 export function ToyChart() {
   const { toys } = useSelector((storeState) => storeState.toyModule)
-  console.log('Toyyysss', toys)
 
   useEffect(() => {
     loadToys()
@@ -60,7 +59,7 @@ export function ToyChart() {
   }
 
   return (
-    <div style={{ width: '50%', margin: 'auto' }}>
+    <div className="toy-chart">
       <PolarArea data={data} />
     </div>
   )
